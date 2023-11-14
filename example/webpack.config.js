@@ -11,15 +11,14 @@ const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const MonacoWebpackPlugin = require('monaco-editor-esm-webpack-plugin');
 const common = {
   entry: {
-    // main: path.resolve(lib, "main.js"),
+    main: path.resolve(lib, "main.js"),
     "editor.worker": "monaco-editor/esm/vs/editor/editor.worker.js",
   },
   output: {
-    publicPath:"/static/pyEditor/",
+    publicPath:"./static/pyEditor/",
     filename: "[name].pyEditor.js",
     path:  path.resolve(__dirname, "pyEditor"),
-    // library: 'pyEditor', // libName 为对外暴露的库名称
-    // libraryTarget: 'commonjs2', // 定义模块运行的方式，将它的值设为umd
+    libraryTarget: 'commonjs2', // 定义模块运行的方式，将它的值设为umd
   },
   module: {
     rules: [

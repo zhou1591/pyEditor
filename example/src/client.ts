@@ -123,7 +123,6 @@ const installEditor = (dom = document.getElementById("pythonEditorDom"), options
     },
     ...options
   });
-  console.log(monacoList)
   monacoList.push(editor)
   MonacoServices.install(editor);
   return editor

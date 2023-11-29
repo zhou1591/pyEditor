@@ -80,7 +80,6 @@ const createPySokect = (url = "ws://127.0.0.1:5000/python") => {
   return new Promise((res, rej) => {
     try {
       const webSocket = createWebSocket(url);
-
       // 监听何时打开web套接字
       listen({
         webSocket,
@@ -89,7 +88,7 @@ const createPySokect = (url = "ws://127.0.0.1:5000/python") => {
           const languageClient = createLanguageClient(connection);
           const disposable = languageClient.start();
           connection.onClose(() => disposable.dispose());
-          res(null)
+          res(webSocket)
         },
       });
     } catch (error) {
@@ -98,7 +97,6 @@ const createPySokect = (url = "ws://127.0.0.1:5000/python") => {
   })
 }
 
-const monacoList: any[] = []
 /**
  * @Author: zjs
  * @Date: 2023-11-13 13:50:37
@@ -110,12 +108,7 @@ const installEditor = (dom = document.getElementById("pythonEditorDom"), options
     modelUrl = 'model.json',
     theme = "vs",
   } = options
-  const editor = monaco.editor.create(dom!, {
-    model: monaco.editor.createModel(
-      initValue,
-      "python",
-      monaco.Uri.parse(`inmemory://${modelUrl}`)
-    ),
+  const editor: Partial<monaco.editor.IStandaloneCodeEditor & { onlyKey: number }> = monaco.editor.create(dom!, {
     glyphMargin: true,
     theme,
     lightbulb: {
@@ -123,7 +116,6 @@ const installEditor = (dom = document.getElementById("pythonEditorDom"), options
     },
     ...options
   });
-  monacoList.push(editor)
   MonacoServices.install(editor);
   return editor
 }
@@ -134,6 +126,7 @@ const installEditor = (dom = document.getElementById("pythonEditorDom"), options
  * @Description: 获取编辑器实例
  */
 const getMonaco = () => monaco
+
 
 export default {
   installEditor,

@@ -14,6 +14,8 @@ const common = {
     main: path.resolve(lib, "main.js"),
     "editor.worker": "monaco-editor/esm/vs/editor/editor.worker.js",
   },
+  // pyEditor  打包main commonjs2
+  // pyEditorWorker 打包 worker 默认
   output: {
     publicPath:"./static/pyEditor/",
     filename: "[name].pyEditor.js",
